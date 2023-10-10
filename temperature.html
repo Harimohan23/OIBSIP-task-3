@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Temperature Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+        h2 {
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+        }
+        select, input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Temperature Converter</h2>
+        <form id="converter-form">
+            <label for="inputTemp">Enter Temperature:</label>
+            <input type="text" id="inputTemp" placeholder="Enter temperature" required>
+            
+            <label for="inputScale">From:</label>
+            <select id="inputScale">
+                <option value="celsius">Celsius</option>
+                <option value="fahrenheit">Fahrenheit</option>
+                <option value="kelvin">Kelvin</option>
+            </select>
+            
+            <label for="outputScale">To:</label>
+            <select id="outputScale">
+                <option value="celsius">Celsius</option>
+                <option value="fahrenheit">Fahrenheit</option>
+                <option value="kelvin">Kelvin</option>
+            </select>
+            
+            <button type="button" onclick="convertTemperature()">Convert</button>
+        </form>
+        <div id="result"></div>
+    </div>
+    
+    <script>
+        function convertTemperature() {
+            const inputTemp = parseFloat(document.getElementById("inputTemp").value);
+            const inputScale = document.getElementById("inputScale").value;
+            const outputScale = document.getElementById("outputScale").value;
+            let result;
+
+            if (inputScale === "celsius") {
+                if (outputScale === "celsius") {
+                    result = inputTemp;
+                } else if (outputScale === "fahrenheit") {
+                    result = (inputTemp * 9/5) + 32;
+                } else {
+                    result = inputTemp + 273.15;
+                }
+            } else if (inputScale === "fahrenheit") {
+                if (outputScale === "celsius") {
+                    result = (inputTemp - 32) * 5/9;
+                } else if (outputScale === "fahrenheit") {
+                    result = inputTemp;
+                } else {
+                    result = (inputTemp - 32) * 5/9 + 273.15;
+                }
+            } else {
+                if (outputScale === "celsius") {
+                    result = inputTemp - 273.15;
+                } else if (outputScale === "fahrenheit") {
+                    result = (inputTemp - 273.15) * 9/5 + 32;
+                } else {
+                    result = inputTemp;
+                }
+            }
+
+            document.getElementById("result").innerHTML = `${inputTemp} ${inputScale} is ${result.toFixed(2)} ${outputScale}`;
+        }
+    </script>
+</body>
+</html>
